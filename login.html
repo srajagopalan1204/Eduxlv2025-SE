@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Scott Training — Login</title>
   <link rel="stylesheet" href="/assets/style.css"/>
+  <script src="assets/users.js"></script>
 </head>
 <body>
   <main class="card">
@@ -17,23 +18,23 @@
   </main>
 <script>
 async function sha256Hex(s){
-  const data = new TextEncoder().encode(s);
-  const hash = await crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  const data = new TextEncoder().encode(s
+  const hash = await crypto.subtle.digest('SHA-256', data
+  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join(""
 }
 document.getElementById("go").addEventListener("click", async () => {
-  const u = document.getElementById("username").value.trim();
+  const u = document.getElementById("username").value.trim(
   const p = document.getElementById("password").value;
-  const msg = document.getElementById("msg");
+  const msg = document.getElementById("msg"
   try {
-    const conf = await fetch("/assets/users.json", {cache:"no-store"}).then(r=>r.json());
-    const cand = await sha256Hex(conf.salt + `${u}:${p}`);
-    const user = conf.users.find(x => x.u === u && x.h === cand);
+    const conf = await fetch("/assets/users.json", {cache:"no-store"};
+    const cand = await sha256Hex(conf.salt + `${u}:${p}`
+    const user = conf.users.find(x => x.u === u && x.h === cand
     if(user){
-      const token = await sha256Hex(conf.salt + u + Date.now());
-      sessionStorage.setItem("scott_auth", token);
-      sessionStorage.setItem("scott_user", u);
-      sessionStorage.setItem("scott_roles", JSON.stringify(user.roles || []));
+      const token = await sha256Hex(conf.salt + u + Date.now()
+      sessionStorage.setItem("scott_auth", token
+      sessionStorage.setItem("scott_user", u
+      sessionStorage.setItem("scott_roles", JSON.stringify(user.roles || [])
       location.href = "/Production/index.html";
     } else {
       msg.textContent = "Invalid credentials.";
@@ -41,7 +42,7 @@ document.getElementById("go").addEventListener("click", async () => {
   } catch(e){
     msg.textContent = "Login error. Try again.";
   }
-});
+}
 </script>
 </body>
 </html>
