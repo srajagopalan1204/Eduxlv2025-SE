@@ -4,45 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Scott Training — Login</title>
-  <link rel="stylesheet" href="/assets/style.css"/>
+  <link rel="stylesheet" href="assets/style.css"/>
   <script src="assets/users.js"></script>
+  <script src="assets/login.js"></script>
 </head>
 <body>
   <main class="card">
     <h1>Scott Electric Training</h1>
     <p class="small">Production requires login. Staging is open.</p>
-    <label>Username <input id="username"/></label>
-    <label>Password <input id="password" type="password"/></label>
+    <label>Username <input id="username" autocomplete="username"/></label>
+    <label>Password <input id="password" type="password" autocomplete="current-password"/></label>
     <button id="go">Sign in</button>
     <div id="msg" class="msg"></div>
   </main>
-<script>
-async function sha256Hex(s){
-  const data = new TextEncoder().encode(s
-  const hash = await crypto.subtle.digest('SHA-256', data
-  return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join(""
-}
-document.getElementById("go").addEventListener("click", async () => {
-  const u = document.getElementById("username").value.trim(
-  const p = document.getElementById("password").value;
-  const msg = document.getElementById("msg"
-  try {
-    const conf = await fetch("/assets/users.json", {cache:"no-store"};
-    const cand = await sha256Hex(conf.salt + `${u}:${p}`
-    const user = conf.users.find(x => x.u === u && x.h === cand
-    if(user){
-      const token = await sha256Hex(conf.salt + u + Date.now()
-      sessionStorage.setItem("scott_auth", token
-      sessionStorage.setItem("scott_user", u
-      sessionStorage.setItem("scott_roles", JSON.stringify(user.roles || [])
-      location.href = "/Production/index.html";
-    } else {
-      msg.textContent = "Invalid credentials.";
-    }
-  } catch(e){
-    msg.textContent = "Login error. Try again.";
-  }
-}
-</script>
 </body>
 </html>
