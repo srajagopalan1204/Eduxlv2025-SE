@@ -1,0 +1,15 @@
+{
+  "env": "Production",
+  "title": "Scott Electric Training",
+  "entities": [
+    {
+      "name": "Scott",
+      "slug": "scott"
+    },
+    {
+      "name": "Palco",
+      "slug": "palco"
+    }
+  ],
+  "notes": "Frozen snapshot for this environment."
+}

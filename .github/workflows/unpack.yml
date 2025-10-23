@@ -1,0 +1,19 @@
+name: Unpack ZIP
+on: workflow_dispatch
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unzip into repo root
+        run: |
+          sudo apt-get update && sudo apt-get install -y unzip
+          unzip -o Eduxlv2025_SE_Pilot_Roles_Checklist.zip -d .
+          rm Eduxlv2025_SE_Pilot_Roles_Checklist.zip
+      - name: Commit unpacked files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Unpack ZIP into repo" || echo "Nothing to commit"
+          git push

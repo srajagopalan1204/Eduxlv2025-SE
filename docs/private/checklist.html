@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Eduxlv2025 – Private Checklist</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .row { display:flex; gap:8px; align-items:center; margin:6px 0; }
+  .row input[type=text]{ flex:1; padding:8px 10px; border-radius:10px; border:1px solid #2c3654; background:#0f1626; color:#e6e9ef;}
+  .pill { font-size:12px; padding:3px 8px; border:1px solid #2c3654; border-radius:999px; color:#a7b1c6;}
+  .task{display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid #25304d; border-radius:12px; margin:6px 0;}
+  .task.done{opacity:.6;}
+  .small{font-size:12px; color:#8f9ab7;}
+</style>
+</head>
+<body class="shell">
+  <main class="card" style="max-width:900px">
+    <h1>Private Checklist <span class="pill">Local Only</span></h1>
+    <p class="small">Saved in your browser (localStorage). Do not link this page publicly.</p>
+
+    <h2>Batch: Five-SOP Pilot</h2>
+    <div id="pilot"></div>
+
+    <div class="row">
+      <input id="newSop" type="text" placeholder="Add SOP_id (e.g., TechMobile_Intro)" />
+      <button id="add">Add</button>
+      <button id="save">Save</button>
+      <button id="reset">Reset</button>
+    </div>
+
+    <h3>Per-SOP tasks</h3>
+    <ol class="small">
+      <li>Export slides → images in <code>son_e_lum</code>.</li>
+      <li>Copy images → <code>Eduxlv2025-SE/SOP/images/…</code>.</li>
+      <li>Update <code>env/Unit_staging/story.json</code> & <code>all_story.json</code>.</li>
+      <li>Validate (<code>validate_env.py</code> with <code>--check-images</code>).</li>
+      <li>Promote: Unit ➜ Integrated; validate; Integrated ➜ Production; tag.</li>
+    </ol>
+  </main>
+
+<script>
+const KEY = "eduxlv2025_checklist_v1";
+const defaultTasks = ["export_images","copy_images","update_env_json","validate","promote"];
+const labels = {
+  export_images:"Export slides → images (son_e_lum)",
+  copy_images:"Copy images → Eduxlv2025-SE/SOP/images/…",
+  update_env_json:"Update Unit story.json & all_story.json",
+  validate:"Run validator (--check-images)",
+  promote:"Promote Unit→Integrated→Production; tag"
+};
+
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || {sops: []}; }catch{ return {sops: []}; } }
+function save(state){ localStorage.setItem(KEY, JSON.stringify(state)); }
+
+function render(){
+  const state = load();
+  const root = document.getElementById("pilot");
+  root.innerHTML = "";
+  state.sops.forEach((sop, idx) => {
+    const wrap = document.createElement("div");
+    wrap.className = "task" + (sop.done ? " done" : "");
+    const title = document.createElement("strong");
+    title.textContent = sop.id;
+    wrap.appendChild(title);
+
+    defaultTasks.forEach(t => {
+      const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = !!sop[t];
+      cb.addEventListener("change", () => { sop[t] = cb.checked; sop.done = defaultTasks.every(k => sop[k]); save(state); render(); });
+      const lab = document.createElement("label"); lab.style.marginRight = "10px"; lab.appendChild(cb); lab.append(" " + labels[t]);
+      wrap.appendChild(lab);
+    });
+
+    const del = document.createElement("button"); del.textContent = "Remove";
+    del.addEventListener("click", () => { state.sops.splice(idx,1); save(state); render(); });
+    wrap.appendChild(del);
+    root.appendChild(wrap);
+  });
+}
+
+document.getElementById("add").addEventListener("click", () => {
+  const i = document.getElementById("newSop"); const id = (i.value||"").trim(); if(!id) return;
+  const state = load(); if(state.sops.some(s=>s.id===id)) return alert("Already listed.");
+  state.sops.push({id, done:false}); save(state); i.value=""; render();
+});
+document.getElementById("save").addEventListener("click", () => save(load()));
+document.getElementById("reset").addEventListener("click", () => { if(confirm("Clear checklist?")){ localStorage.removeItem(KEY); render(); }});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "entities": [
+    {
+      "name": "Scott",
+      "functions": [
+        {
+          "name": "Electrical_Distribution"
+        },
+        {
+          "name": "Specialty",
+          "subentities": [
+            "Signs_Engraving",
+            "Print_Stitch",
+            "Instant_Print",
+            "CLD",
+            "EDGE"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Palco",
+      "functions": [
+        {
+          "name": "Sales"
+        },
+        {
+          "name": "Purchasing"
+        },
+        {
+          "name": "Warehousing"
+        },
+        {
+          "name": "Service",
+          "subentities": [
+            "ISM",
+            "TechMobile"
+          ]
+        },
+        {
+          "name": "Finance"
+        }
+      ]
+    }
+  ]
+}

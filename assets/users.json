@@ -1,0 +1,20 @@
+{
+  "salt": "scott-training-v1",
+  "users": [
+    {
+      "u": "trainer1",
+      "h": "e58e8ad91f48379ae05baac2a8cc7bf99449b0b79fcc95e349bc6284b8560a7a",
+      "roles": [
+        "Scott",
+        "Palco"
+      ]
+    },
+    {
+      "u": "viewer1",
+      "h": "ecdca9dfccb12aab1952e7eb43422375518665d7daa540dbb8987a934b2d6ce0",
+      "roles": [
+        "Palco:Service:TechMobile"
+      ]
+    }
+  ]
+}

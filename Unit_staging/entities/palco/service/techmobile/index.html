@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Palco → Service → TechMobile</title>
+<link rel="stylesheet" href="/assets/style.css"/>
+<script src="/assets/gate.js"></script>
+<script src="/assets/roles.js"></script>
+<script src="/assets/env.js"></script>
+</head>
+<body>
+<header class="header">
+  <h1>Palco → Service → TechMobile <span class="badge" id="env"></span></h1>
+  <nav><a class="badge" href="../index.html">Back</a></nav>
+</header>
+<div class="breadcrumbs">Palco → Service → TechMobile → SOPs</div>
+<main class="main">
+  <section class="grid" id="sops"></section>
+</main>
+<script>
+(async () => {
+  const {env, story} = await getEnvFiles();
+  const base = "SOP/Palco/Service/TechMobile/";
+  const sops = {};
+  for(const it of story){
+    if(it.SOP_path && it.SOP_path.startsWith(base)){
+      const id = it.SOP_id;
+      if(!sops[id]) sops[id] = [];
+      sops[id].push(it);
+    }
+  }
+  const grid = document.getElementById('sops');
+  const keys = Object.keys(sops).sort();
+  if(keys.length === 0){
+    grid.innerHTML = '<div class="tile"><h3>No SOPs yet</h3><p>Add items to env/'+env+'/story.json</p></div>';
+    return;
+  }
+  for(const k of keys){
+    const frames = sops[k];
+    const title = frames[0]?.Title || k;
+    const sopPath = frames[0]?.SOP_path || "";
+    const link = `/${env}/viewer.html?sop=${encodeURIComponent(sopPath)}`;
+    const div = document.createElement('a');
+    div.className = 'tile';
+    div.href = link;
+    div.innerHTML = `<h3>${k}</h3><p>${title}</p>`;
+    grid.appendChild(div);
+  }
+  document.getElementById('env').textContent = env;
+})();
+</script>
+</body></html>

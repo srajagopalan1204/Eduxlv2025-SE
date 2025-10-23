@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Palco — Service</title>
+<link rel="stylesheet" href="/assets/style.css"/>
+<script src="/assets/gate.js"></script>
+<script src="/assets/roles.js"></script>
+<script src="/assets/env.js"></script>
+</head>
+<body>
+<header class="header">
+  <h1>Palco → Service <span class="badge" id="env"></span></h1>
+  <nav><a class="badge" href="../index.html">Back</a></nav>
+</header>
+<div class="breadcrumbs">Palco → Service → Sub-entities</div>
+<main class="main">
+<section class="grid">
+  <a class="tile" id="tile-techmobile" href="./techmobile/index.html"><h3>TechMobile</h3><p>SLP Pilot</p></a>
+  <div class="tile"><h3>ISM</h3><p>Placeholder</p></div>
+</section>
+</main>
+<script>
+document.getElementById('env').textContent = (window.__ENV_NAME__||'');
+__roles.lockTile(document.getElementById("tile-techmobile"), "Palco:Service:TechMobile");
+</script>
+</body></html>

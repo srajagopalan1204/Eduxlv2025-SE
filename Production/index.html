@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scott Electric Training — Production</title>
+  <link rel="stylesheet" href="/assets/style.css"/>
+  <script src="/assets/gate.js"></script>
+  <script src="/assets/roles.js"></script>
+  <script src="/assets/env.js"></script>
+</head>
+<body>
+  <header class="header">
+    <h1>Welcome to Scott Electric Training <span class="badge">Production</span></h1>
+    <nav><a class="badge" href="/Integrated_Testing/index.html">Switch env</a></nav>
+  </header>
+  <div class="breadcrumbs">Entities</div>
+  <main class="main">
+    <section class="grid">
+      <a class="tile" id="tile-scott" href="/Production/entities/scott/index.html">
+        <h3>Scott Electric</h3>
+        <p>Electrical Distribution • Specialty (Signs & Engraving, Print & Stitch, Instant Print, CLD, EDGE)</p>
+      </a>
+      <a class="tile" id="tile-palco" href="/Production/entities/palco/index.html">
+        <h3>Palco</h3>
+        <p>Sales • Purchasing • Warehousing • Service (ISM, TechMobile) • Finance</p>
+      </a>
+    </section>
+  </main>
+  <footer class="footer">© Scott Electric — Training Portal</footer>
+  <script>
+    __roles.lockTile(document.getElementById("tile-scott"), "Scott");
+    __roles.lockTile(document.getElementById("tile-palco"), "Palco");
+  </script>
+</body>
+</html>

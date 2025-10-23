@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Palco — Functions</title>
+<link rel="stylesheet" href="/assets/style.css"/>
+<script src="/assets/gate.js"></script>
+<script src="/assets/roles.js"></script>
+<script src="/assets/env.js"></script>
+</head>
+<body>
+<header class="header">
+  <h1>Palco <span class="badge" id="env"></span></h1>
+  <nav><a class="badge" href="../scott/index.html">Scott</a> <a class="badge" href="/Integrated_Testing/index.html">Back</a></nav>
+</header>
+<div class="breadcrumbs">Palco → Functions</div>
+<main class="main">
+<section class="grid">
+  <a class="tile" id="tile-service" href="./service/index.html"><h3>Service</h3><p>ISM, TechMobile</p></a>
+  <div class="tile"><h3>Sales</h3><p>Placeholder</p></div>
+  <div class="tile"><h3>Purchasing</h3><p>Placeholder</p></div>
+  <div class="tile"><h3>Warehousing</h3><p>Placeholder</p></div>
+  <div class="tile"><h3>Finance</h3><p>Placeholder</p></div>
+</section>
+</main>
+<script>
+document.getElementById('env').textContent = (window.__ENV_NAME__||'');
+__roles.lockTile(document.getElementById("tile-service"), "Palco:Service");
+</script>
+</body></html>

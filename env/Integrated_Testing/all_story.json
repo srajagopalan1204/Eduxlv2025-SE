@@ -1,0 +1,25 @@
+{
+  "generated_at": "2025-10-23T15:20:02.594031",
+  "items": [
+    {
+      "SOP_path": "SOP/Palco/Service/TechMobile/TechMobile_Intro",
+      "Entity": "Palco",
+      "Function": "Service",
+      "SubEntity": "TechMobile",
+      "SOP_id": "TechMobile_Intro",
+      "Code": "G1",
+      "Title": "Start Menu",
+      "Image_sub_url": "/SOP/images/Palco/Service/TechMobile/G1_v1.png"
+    },
+    {
+      "SOP_path": "SOP/Palco/Service/TechMobile/TechMobile_Intro",
+      "Entity": "Palco",
+      "Function": "Service",
+      "SubEntity": "TechMobile",
+      "SOP_id": "TechMobile_Intro",
+      "Code": "M1",
+      "Title": "Main Options",
+      "Image_sub_url": "/SOP/images/Palco/Service/TechMobile/M1_v1.png"
+    }
+  ]
+}

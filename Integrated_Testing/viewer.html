@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SOP Viewer</title>
+<link rel="stylesheet" href="/assets/style.css"/>
+<script src="/assets/gate.js"></script>
+<script src="/assets/roles.js"></script>
+<script src="/assets/env.js"></script>
+</head>
+<body>
+<header class="header">
+  <h1>SOP Viewer <span class="badge" id="env"></span></h1>
+  <nav><a class="badge" href="javascript:history.back()">Back</a></nav>
+</header>
+<main class="main">
+  <div class="card" id="meta"></div>
+  <div id="frames" class="grid"></div>
+</main>
+<script>
+function codeRank(c){
+  if(!c) return 99999;
+  const letter = c[0];
+  const num = parseInt(c.slice(1)) || 0;
+  const base = (letter==='G'?0:(letter==='M'?1000:(letter==='D'?2000:3000)));
+  return base + num;
+}
+(function guard(){
+  const env = (window.__ENV_NAME__ || "").trim();
+  if (env !== "Production") return;
+  const params = new URLSearchParams(location.search);
+  const sopPath = params.get('sop') || '';
+  const parts = sopPath.split('/');
+  if (parts[0] === "SOP" && parts.length >= 3){
+    const scope = parts.slice(1,4).join(":");
+    if (!window.__roles.hasAccess(scope)){
+      alert("You don't have access to this SOP.");
+      location.replace("/Production/index.html");
+    }
+  }
+})();
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const sop = params.get('sop') || '';
+  const {env, story} = await getEnvFiles();
+  document.getElementById('env').textContent = env;
+  const frames = story.filter(it => it.SOP_path === sop).sort((a,b)=> codeRank(a.Code)-codeRank(b.Code));
+  const meta = document.getElementById('meta');
+  if(frames.length === 0){
+    meta.innerHTML = '<p>No frames for this SOP. Check story.json.</p>';
+    return;
+  }
+  const h = frames[0];
+  meta.innerHTML = `<h3>${h.SOP_id}</h3><p>${h.Entity} → ${h.Function}${h.SubEntity?(' → '+h.SubEntity):''}</p>`;
+  const grid = document.getElementById('frames');
+  for(const f of frames){
+    const a = document.createElement('div');
+    a.className = 'tile';
+    a.innerHTML = `<h3>${f.Code} — ${f.Title}</h3><img class="img-frame" loading="lazy" src="${f.Image_sub_url}" alt="${f.Title}"/>`;
+    grid.appendChild(a);
+  }
+})();
+</script>
+</body></html>
