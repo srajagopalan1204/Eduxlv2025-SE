@@ -1,0 +1,54 @@
+.
+├── Integrated_Testing
+│   ├── entities
+│   │   ├── palco
+│   │   └── scott
+│   ├── index.html
+│   └── viewer.html
+├── Production
+│   ├── entities
+│   │   ├── palco
+│   │   └── scott
+│   ├── index.html
+│   └── viewer.html
+├── README.md
+├── SOP
+│   └── images
+│       └── Palco
+├── Unit_staging
+│   ├── entities
+│   │   ├── palco
+│   │   └── scott
+│   ├── index.html
+│   └── viewer.html
+├── assets
+│   ├── env.js
+│   ├── gate.js
+│   ├── login.js
+│   ├── roles.js
+│   ├── style.css
+│   ├── users.js
+│   └── users.json
+├── docs
+│   └── private
+│       └── checklist.html
+├── env
+│   ├── Integrated_Testing
+│   │   ├── all_story.json
+│   │   ├── nav_config.json
+│   │   ├── story.json
+│   │   └── taxonomy.json
+│   ├── Production
+│   │   ├── all_story.json
+│   │   ├── nav_config.json
+│   │   ├── story.json
+│   │   └── taxonomy.json
+│   └── Unit_staging
+│       ├── all_story.json
+│       ├── nav_config.json
+│       ├── story.json
+│       └── taxonomy.json
+├── login.html
+└── tree_102325_1230.txt
+
+23 directories, 29 files
